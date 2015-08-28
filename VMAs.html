@@ -86,19 +86,11 @@ var color = d3.scale.category10();
 var xAxis = d3.svg.axis()
     .scale(x)
     .tickSize(0)
-    .ticks(23)
     .orient("top");
-
-var xtickLabels = ["8:56 PM ET", "9:04 PM ET", "9:12 PM ET", "9:20 PM ET", "9:28 PM ET", "9:36 PM ET", "9:44 PM ET", "9:52 PM ET", "10:00 PM ET", "10:08 PM ET", "10:16 PM ET", "10:24 PM ET", "10:32 PM ET", "10:40 PM ET", "10:48 PM ET", "10:56 PM ET", "11:04 PM ET", "11:12 PM ET", "11:20 PM ET", "11:28 PM ET", "11:36 PM ET", "11:44 PM ET", "11:52 PM ET"];
-
-xAxis.tickFormat(function(d,i){
-    return xtickLabels[i]
-  });
 
 var yAxis = d3.svg.axis()
     .scale(y)
     .tickFormat(function(d) { return d;})
-    .ticks(11) 
     .innerTickSize(- width)
     .tickPadding(10)
     .outerTickSize(0)
@@ -127,12 +119,11 @@ var clip = svg.append("clipPath")
 
 d3.csv("VMAs.csv", function(error, data) {
   
-  color.domain(d3.keys(data[0]).filter(function(key) { return key !== "week"; }));
+  color.domain(d3.keys(data[0]).filter(function(key) { return key !== "week" && key !== 'time'; }));
 
   data.forEach(function(d) {
     d.week = +[d.week];
   });
-
 
   var candidates = color.domain().map(function(name) {
     return {
@@ -143,8 +134,15 @@ d3.csv("VMAs.csv", function(error, data) {
     };
   });
 
+  var xtickLabels = getCol(data, "time"); 
+  
+  xAxis.tickFormat(function(d,i){ return xtickLabels[i]}) 
+       .ticks(xtickLabels.length);
+
+  yAxis.ticks(candidates.length);
 
   x.domain(d3.extent(data, function(d) { return d.week; }));
+
 
 
   y.domain([
@@ -191,9 +189,7 @@ svg.append("g")
 
 // to assign color for each candidate
 function colorFilter(d){
-    if (d.name === "") {
-          return "#C53929";
-      } else if (d.name === "Ed Sheeran"){
+    if (d.name === "Ed Sheeran"){
         return "#E91E63";
       } else if (d.name === "Taylor Swift"){
         return "#D83153";
@@ -205,24 +201,14 @@ function colorFilter(d){
         return "#4285F4";
       } else if (d.name === "The Weeknd"){
         return "#303F9F"; 
-      } else if (d.name === ""){
-        return "#00BCD4";
       } else if (d.name === "Nicki Minaj"){
         return "#0B8043";
       } else if (d.name === "Sia"){
         return "#8BC34A";
-      } else if (d.name === ""){
-        return "#AFB42B";
       } else if (d.name === "Beyoncé"){
         return "#FBC02D";
       } else if (d.name === "Kendrick Lamar"){
         return "#FF9800";
-      } else if (d.name === ""){
-        return "#E64A19";
-      } else if (d.name == "Jim Gilmore") {
-          return "#5D4037";
-      } else if (d.name == "Mike Huckabee") { 
-          return "#9E9E9E";
       } else if (d.name == "Mark Ronson") {
           return "#BA68C8";
       } else {
@@ -235,8 +221,6 @@ function colorFilter(d){
       .attr("d", function(d) { return line(d.values); })
       .attr("clip-path", function(d) { return "url(#clip)"; })
       .style("stroke", colorFilter);
-      
- 
 
 var circleStart = candidates.append("circle")
       .attr("cx", "0")
@@ -244,19 +228,12 @@ var circleStart = candidates.append("circle")
       .style("fill", colorFilter)
       .attr("r", 2)
 
- 
-
 var circleEnd = candidates.append("circle")
       .attr("cx", function(d) { return x(d.values[0].week); })
       .attr("cy", function(d) { return y(d.values[0].rank);} )
       .style("fill", colorFilter)
       .attr("r", 2);
 
- // var timemark = candidates.append("circle")
- //    .attr("cx",function(d) { return x(d.values[0].week); })
- //    .attr("cy",y(0)+20)
- //    .attr("r",3)
- //    .style("fill","grey")
 var timemark = candidates.append("path")
                   .attr("d", d3.svg.symbol().type("triangle-up"))
                   .style("fill", "grey")
@@ -305,8 +282,11 @@ var round = candidates.append("circle")
       .style("font-weight", "bold")
       .text(function(d) { return d.name; });
 
-  // This is the part to solve overlapping in the start
+  // FOR TIE BREAKERS @ THE START 
+  // update label.name to the name of the artists in a tie 
+  // make sure to uncomment below 
 
+/*
       // overlap 1
   label.filter(function(label){
         return label.name === "Nick Jonas";
@@ -315,7 +295,7 @@ var round = candidates.append("circle")
   label.filter(function(label){
         return label.name === "Kendrick Lamar";
       }).transition().duration(10).attr("transform", function(d) { return "translate(" + (x(d.values[0].week) + 20) + "," + (y(d.values[0].rank) + 12) + ")"; })
-
+*/
   // end 
 
   var week = 1;
@@ -358,29 +338,23 @@ var round = candidates.append("circle")
          .duration(speed)
          .ease('linear')
          .attr("transform",function(d) { return "translate(" + (x(d.values[week].week) ) + "," + (y(1)-15) + ") rotate(-30)"; })
-
-      // timemark.transition()
-      //   .duration(speed)
-      //   .ease('linear')
-      //   .attr("cx", function(d) { return x(d.values[week].week); })
-      //   .attr("cy", y(0) + 20);
-      
-
     
-    if (week !== 22){
+    if (week !== xtickLabels.length - 1){
        
         week+=1;
 
         transition = transition.transition().each("start", start);} 
 
-     else if (week === 22){
+     else if (week === xtickLabels.length - 1){
 
       label.transition()
         .duration(speed)
         .ease('linear')
         .attr("transform", function(d) {return "translate(" + (x(d.values[week].week) + 20) + "," + (y(d.values[week].rank)) + ")"; })
 
-    //need to change the names according to the candidates that are in tie
+    // FOR END TIE BREAKERS 
+    // Change the label.name as needed for both people in a tie 
+    // Make sure to uncomment below 
 /*
     
       label.filter(function(label){
@@ -425,9 +399,6 @@ var round = candidates.append("circle")
       
     })
 
-    
-
-      
 
 });
 
@@ -451,6 +422,15 @@ var round = candidates.append("circle")
         }  
     }
 
+}
+
+function getCol(matrix, col){
+  var column = [];
+  
+  for(var i=0; i<matrix.length; i++) {
+    column.push(matrix[i][col]);}
+  
+  return column;
 }
 
 </script>
