@@ -68,11 +68,11 @@ li{
 
 function drawGrahpics(){
 
-var margin = {top: 100, right: 160, bottom: 75, left: 60},
+var margin = {top: 100, right: 200, bottom: 75, left: 60},
     width = 960 - margin.left - margin.right,
     height = 400 - margin.top - margin.bottom;
 
-var speed = 600;
+var speed = 900;
 
 var x = d3.scale.linear()
     .range([0, width]);
@@ -189,27 +189,27 @@ svg.append("g")
 
 // to assign color for each candidate
 function colorFilter(d){
-    if (d.name === "Ed Sheeran"){
+    if (d.name === "Lee Hsien Loong"){
         return "#E91E63";
-      } else if (d.name === "Taylor Swift"){
+      } else if (d.name === "Low Thia Khiang"){
         return "#D83153";
-      } else if (d.name === "Nick Jonas"){
+      } else if (d.name === "Sebastian Teo"){
         return "#7B1FA2";
-      } else if (d.name === "Ellie Goulding"){
+      } else if (d.name === "Goh Meng Seng"){
         return "#3367D6";
-      } else if (d.name === "Bruno Mars"){
+      } else if (d.name === "Kenneth Jeyaretnam"){
         return "#4285F4";
-      } else if (d.name === "The Weeknd"){
+      } else if (d.name === "Desmond Lim"){
         return "#303F9F"; 
-      } else if (d.name === "Nicki Minaj"){
+      } else if (d.name === "Chee Soon Juan"){
         return "#0B8043";
-      } else if (d.name === "Sia"){
+      } else if (d.name === "Chiam See Tong"){
         return "#8BC34A";
-      } else if (d.name === "Beyoncé"){
+      } else if (d.name === "Tan Jee Say"){
         return "#FBC02D";
-      } else if (d.name === "Kendrick Lamar"){
+      } else if (d.name === "People's Action Party"){
         return "#FF9800";
-      } else if (d.name == "Mark Ronson") {
+      } else if (d.name == "Han Hui Hui") {
           return "#BA68C8";
       } else {
         return "#E5768C";}

@@ -68,11 +68,11 @@ li{
 
 function drawGrahpics(){
 
-var margin = {top: 100, right: 160, bottom: 75, left: 60},
+var margin = {top: 100, right: 200, bottom: 75, left: 60},
     width = 960 - margin.left - margin.right,
     height = 400 - margin.top - margin.bottom;
 
-var speed = 600;
+var speed = 900;
 
 var x = d3.scale.linear()
     .range([0, width]);
@@ -189,28 +189,28 @@ svg.append("g")
 
 // to assign color for each candidate
 function colorFilter(d){
-    if (d.name === "Ed Sheeran"){
+    if (d.name === "Worker's Party"){
         return "#E91E63";
-      } else if (d.name === "Taylor Swift"){
+      } else if (d.name === "Singapore People's Party"){
         return "#D83153";
-      } else if (d.name === "Nick Jonas"){
+      } else if (d.name === "Singaporeans First"){
         return "#7B1FA2";
-      } else if (d.name === "Ellie Goulding"){
+      } else if (d.name === "Singapore Democratic Party"){
         return "#3367D6";
-      } else if (d.name === "Bruno Mars"){
-        return "#4285F4";
-      } else if (d.name === "The Weeknd"){
+      //} else if (d.name === "Singapore Democratic Alliance"){
+        //return "#4285F4";
+      } else if (d.name === "Reform Party"){
         return "#303F9F"; 
-      } else if (d.name === "Nicki Minaj"){
+      } else if (d.name === "People's Power Party"){
         return "#0B8043";
-      } else if (d.name === "Sia"){
+      } else if (d.name === "National Solidarity Party"){
         return "#8BC34A";
-      } else if (d.name === "Beyoncé"){
-        return "#FBC02D";
-      } else if (d.name === "Kendrick Lamar"){
+      //} else if (d.name === "Worker's Party"){
+        //return "#FBC02D";
+      } else if (d.name === "People's Action Party"){
         return "#FF9800";
-      } else if (d.name == "Mark Ronson") {
-          return "#BA68C8";
+      } else if (d.name == "Singapore Democratic Alliance") {
+        return "#BA68C8";
       } else {
         return "#E5768C";}
     }
