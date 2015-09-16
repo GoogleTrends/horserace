@@ -70,7 +70,7 @@ function drawGrahpics(){
 
 var margin = {top: 100, right: 160, bottom: 75, left: 60},
     width = 960 - margin.left - margin.right,
-    height = 450 - margin.top - margin.bottom;
+    height = 400 - margin.top - margin.bottom;
 
 var speed = 600;
 
@@ -256,7 +256,7 @@ var round = candidates.append("circle")
       .attr("transform", function(d) { return "translate(" + (x(d.values[0].week) + 15) + "," + (y(d.values[0].rank)) + ")"; })
       .attr("x", 0)
       .attr("y",0)
-      .attr("r", 10)
+      .attr("r", 8)
       .on("mouseover", function (d) {
         candidates.style("opacity",0.1);
         candidates.filter(function(path) {return path.name === d.name; }).style("opacity",1);
