@@ -189,31 +189,44 @@ svg.append("g")
 
 // to assign color for each candidate
 function colorFilter(d){
-    if (d.name === "NA"){
+    if (d.name === "Donald Trump") {
+          return "#C53929";
+      } else if (d.name === "Scott Walker"){
         return "#E91E63";
-      } else if (d.name === "Bobby Jindal"){
+      } else if (d.name === "Chris Christie"){
         return "#D83153";
-      } else if (d.name === "Nick Jonas"){
+      } else if (d.name === "Ben Carson"){
         return "#7B1FA2";
-      } else if (d.name === "Ellie Goulding"){
+      } else if (d.name === "Carly Fiorina"){
         return "#3367D6";
-      } else if (d.name === "Bruno Mars"){
+      } else if (d.name === "Jeb Bush"){
         return "#4285F4";
-      } else if (d.name === "George Pataki"){
+      } else if (d.name === "Ted Cruz"){
         return "#303F9F"; 
-      } else if (d.name === "Lindsey Graham"){
+      } else if (d.name === "Rand Paul"){
+        return "#00BCD4";
+      } else if (d.name === "John Kasich"){
         return "#0B8043";
-      } else if (d.name === "Sia"){
+      } else if (d.name === "Marco Rubio"){
         return "#8BC34A";
+      } else if (d.name === "Rick Perry"){
+        return "#AFB42B";
       } else if (d.name === "Rick Santorum"){
         return "#FBC02D";
-      } else if (d.name === "Kendrick Lamar"){
+      } else if (d.name === "Bobby Jindal"){
         return "#FF9800";
-      } else if (d.name == "Mark Ronson") {
+      } else if (d.name === "Lindsey Graham"){
+        return "#E64A19";
+      } else if (d.name == "Jim Gilmore") {
+          return "#5D4037";
+      } else if (d.name == "Mike Huckabee") { 
+          return "#9E9E9E";
+      } else if (d.name == "George Pataki") {
           return "#BA68C8";
       } else {
         return "#E5768C";}
     }
+
 
 
   var path = svg.selectAll(".candidate").append("path")
