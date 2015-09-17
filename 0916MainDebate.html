@@ -286,7 +286,7 @@ var round = candidates.append("circle")
   // update label.name to the name of the artists in a tie 
   // make sure to uncomment below 
 
-
+/*
       // overlap 1
   label.filter(function(label){
         return label.name === "Ted Cruz";
@@ -296,7 +296,7 @@ var round = candidates.append("circle")
         return label.name === "Scott Walker";
       }).transition().duration(10).attr("transform", function(d) { return "translate(" + (x(d.values[0].week) + 20) + "," + (y(d.values[0].rank) + 12) + ")"; })
 
-  // end 
+  // end */
 
   var week = 1;
 
@@ -356,7 +356,7 @@ var round = candidates.append("circle")
     // Change the label.name as needed for both people in a tie 
     // Make sure to uncomment below 
 
-    
+    /*
       label.filter(function(label){
         return label.name === "Ted Cruz";
       }).transition().duration(speed).ease('linear').attr("transform", function(d) {return "translate(" + (x(d.values[week].week) + 20) + "," + (y(d.values[week].rank)) + ")"; })
@@ -378,7 +378,7 @@ var round = candidates.append("circle")
         return label.name === "Rand Paul";
       }).transition().duration(speed).ease('linear').attr("transform", function(d) {return "translate(" + (x(d.values[week].week) + 20) + "," + (y(d.values[week].rank) + 24) + ")"; })
 
-
+*/
         ranking.transition()
         .duration(speed)
         .ease('linear')
