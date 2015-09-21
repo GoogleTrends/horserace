@@ -17,7 +17,7 @@
 <style>
 
 body {
-  font-size: 12px;
+  font-size: 11px;
   font-family: 'Roboto', sans-serif;
   margin-top: 20px;
 }
@@ -213,13 +213,13 @@ function colorFilter(d){
         return "#AFB42B";
       } else if (d.name === "Robin Wright"){
         return "#FBC02D";
-      } else if (d.name === "Bobby Jindal"){
+      } else if (d.name === "Allison Janney"){
         return "#FF9800";
-      } else if (d.name === "Lindsey Graham"){
+      } else if (d.name === "Regina King"){
         return "#E64A19";
-      } else if (d.name == "Jim Gilmore") {
+      } else if (d.name == "Frances McDormand") {
           return "#5D4037";
-      } else if (d.name == "Mike Huckabee") { 
+      } else if (d.name == "Uzo Aduba") { 
           return "#9E9E9E";
       } else if (d.name == "George Pataki") {
           return "#BA68C8";
@@ -257,7 +257,7 @@ var round = candidates.append("circle")
       .attr("transform", function(d) { return "translate(" + (x(d.values[0].week) + 15) + "," + (y(d.values[0].rank)) + ")"; })
       .attr("x", 0)
       .attr("y",0)
-      .attr("r", 8)
+      .attr("r", 7)
       .on("mouseover", function (d) {
         candidates.style("opacity",0.1);
         candidates.filter(function(path) {return path.name === d.name; }).style("opacity",1);
@@ -307,6 +307,14 @@ var round = candidates.append("circle")
 
   label.filter(function(label){
         return label.name === "Edie Falco";
+      }).transition().duration(10).attr("transform", function(d) { return "translate(" + (x(d.values[0].week) + 20) + "," + (y(d.values[0].rank) + 12) + ")"; })
+
+    label.filter(function(label){
+        return label.name === "Regina King";
+      }).transition().duration(10).attr("transform", function(d) { return "translate(" + (x(d.values[0].week) + 20) + "," + (y(d.values[0].rank) ) + ")"; })
+
+  label.filter(function(label){
+        return label.name === "Robin Wright";
       }).transition().duration(10).attr("transform", function(d) { return "translate(" + (x(d.values[0].week) + 20) + "," + (y(d.values[0].rank) + 12) + ")"; })
 
   // end */

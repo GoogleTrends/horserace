@@ -17,7 +17,7 @@
 <style>
 
 body {
-  font-size: 12px;
+  font-size: 11px;
   font-family: 'Roboto', sans-serif;
   margin-top: 20px;
 }
@@ -213,15 +213,15 @@ function colorFilter(d){
         return "#AFB42B";
       } else if (d.name === "Liev Schreiber"){
         return "#FBC02D";
-      } else if (d.name === "Kevin Space"){
+      } else if (d.name === "Kevin Spacey"){
         return "#FF9800";
-      } else if (d.name === "Lindsey Graham"){
+      } else if (d.name === "Tony Hale"){
         return "#E64A19";
-      } else if (d.name == "Jim Gilmore") {
+      } else if (d.name == "Bill Murray") {
           return "#5D4037";
-      } else if (d.name == "Mike Huckabee") { 
+      } else if (d.name == "Richard Jenkins") { 
           return "#9E9E9E";
-      } else if (d.name == "George Pataki") {
+      } else if (d.name == "Peter Dinklage") {
           return "#BA68C8";
       } else {
         return "#E5768C";}
@@ -257,7 +257,7 @@ var round = candidates.append("circle")
       .attr("transform", function(d) { return "translate(" + (x(d.values[0].week) + 15) + "," + (y(d.values[0].rank)) + ")"; })
       .attr("x", 0)
       .attr("y",0)
-      .attr("r", 8)
+      .attr("r", 7)
       .on("mouseover", function (d) {
         candidates.style("opacity",0.1);
         candidates.filter(function(path) {return path.name === d.name; }).style("opacity",1);
@@ -278,7 +278,7 @@ var round = candidates.append("circle")
       .on("mouseout", function (d) { candidates.style("opacity",1); })
       .style("cursor","pointer")
       .style("fill", "#ffffff")
-      .style("font-weight", "bold")
+      //.style("font-weight", "bold")
       .text(function(d) { return d.values[0].rank; });
 
   var label = candidates.append("text")
