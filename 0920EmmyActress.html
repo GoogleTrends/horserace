@@ -17,7 +17,7 @@
 <style>
 
 body {
-  font-size: 11px;
+  font-size: 12px;
   font-family: 'Roboto', sans-serif;
   margin-top: 20px;
 }
@@ -189,38 +189,38 @@ svg.append("g")
 
 // to assign color for each candidate
 function colorFilter(d){
-    if (d.name === "Edie Falco") {
+    if (d.name === "Viola Davis") {
           return "#C53929";
       } else if (d.name === "Lisa Kudrow"){
         return "#E91E63";
-      } else if (d.name === "Julia Louis-Dreyfus"){
+      } else if (d.name === "Amy Schumer"){
         return "#D83153";
       } else if (d.name === "Amy Poehler"){
         return "#7B1FA2";
-      } else if (d.name === "Amy Schumer"){
+      } else if (d.name === "Uzo Aduba"){
         return "#3367D6";
       } else if (d.name === "Lily Tomlin"){
         return "#4285F4";
-      } else if (d.name === "Claire Danes"){
+      } else if (d.name === "Regina King"){
         return "#303F9F"; 
-      } else if (d.name === "Viola Davis"){
-        return "#00BCD4";
-      } else if (d.name === "Taraji P. Henson"){
+      //} else if (d.name === "Viola Davis"){
+        //return "#00BCD4";
+      } else if (d.name === "Julia Louis-Dreyfus"){
         return "#0B8043";
       } else if (d.name === "Tatiana Maslany"){
         return "#8BC34A";
-      } else if (d.name === "Elisabeth Moss"){
+      } else if (d.name === "Allison Janney"){
         return "#AFB42B";
       } else if (d.name === "Robin Wright"){
         return "#FBC02D";
-      } else if (d.name === "Allison Janney"){
+      } else if (d.name === "Frances McDormand"){
         return "#FF9800";
-      } else if (d.name === "Regina King"){
-        return "#E64A19";
-      } else if (d.name == "Frances McDormand") {
-          return "#5D4037";
-      } else if (d.name == "Uzo Aduba") { 
-          return "#9E9E9E";
+      //} else if (d.name === "Regina King"){
+        //return "#E64A19";
+      //} else if (d.name == "Frances McDormand") {
+        //  return "#5D4037";
+      //} else if (d.name == "Uzo Aduba") { 
+      //    return "#9E9E9E";
       } else if (d.name == "George Pataki") {
           return "#BA68C8";
       } else {
@@ -257,7 +257,7 @@ var round = candidates.append("circle")
       .attr("transform", function(d) { return "translate(" + (x(d.values[0].week) + 15) + "," + (y(d.values[0].rank)) + ")"; })
       .attr("x", 0)
       .attr("y",0)
-      .attr("r", 7)
+      .attr("r", 8)
       .on("mouseover", function (d) {
         candidates.style("opacity",0.1);
         candidates.filter(function(path) {return path.name === d.name; }).style("opacity",1);
@@ -299,7 +299,7 @@ var round = candidates.append("circle")
   // update label.name to the name of the artists in a tie 
   // make sure to uncomment below 
 
-
+/*
       // overlap 1
   label.filter(function(label){
         return label.name === "Lisa Kudrow";

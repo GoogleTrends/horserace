@@ -17,7 +17,7 @@
 <style>
 
 body {
-  font-size: 11px;
+  font-size: 12px;
   font-family: 'Roboto', sans-serif;
   margin-top: 20px;
 }
@@ -189,11 +189,11 @@ svg.append("g")
 
 // to assign color for each candidate
 function colorFilter(d){
-    if (d.name === "Matt LeBlanc") {
+    if (d.name === "Jon Hamm") {
           return "#C53929";
       } else if (d.name === "Don Cheadle"){
         return "#E91E63";
-      } else if (d.name === "Louis C.K."){
+      } else if (d.name === "Peter Dinklage"){
         return "#D83153";
       } else if (d.name === "William H. Macy"){
         return "#7B1FA2";
@@ -201,15 +201,15 @@ function colorFilter(d){
         return "#3367D6";
       } else if (d.name === "Anthony Anderson"){
         return "#4285F4";
-      } else if (d.name === "Will Forte"){
+      } else if (d.name === "Tony Hale"){
         return "#303F9F"; 
       } else if (d.name === "Kyle Chandler"){
         return "#00BCD4";
-      } else if (d.name === "Jeff Daniels"){
+      } else if (d.name === "Bill Murray"){
         return "#0B8043";
-      } else if (d.name === "Jon Hamm"){
-        return "#8BC34A";
-      } else if (d.name === "Bob Odenkirk"){
+      //} else if (d.name === "Jon Hamm"){
+      //  return "#8BC34A";
+      } else if (d.name === "Richard Jenkins"){
         return "#AFB42B";
       } else if (d.name === "Liev Schreiber"){
         return "#FBC02D";
@@ -219,10 +219,10 @@ function colorFilter(d){
         return "#E64A19";
       } else if (d.name == "Bill Murray") {
           return "#5D4037";
-      } else if (d.name == "Richard Jenkins") { 
-          return "#9E9E9E";
-      } else if (d.name == "Peter Dinklage") {
-          return "#BA68C8";
+      //} else if (d.name == "Richard Jenkins") { 
+      //    return "#9E9E9E";
+      //} else if (d.name == "Peter Dinklage") {
+      //    return "#BA68C8";
       } else {
         return "#E5768C";}
     }
@@ -257,7 +257,7 @@ var round = candidates.append("circle")
       .attr("transform", function(d) { return "translate(" + (x(d.values[0].week) + 15) + "," + (y(d.values[0].rank)) + ")"; })
       .attr("x", 0)
       .attr("y",0)
-      .attr("r", 7)
+      .attr("r", 8)
       .on("mouseover", function (d) {
         candidates.style("opacity",0.1);
         candidates.filter(function(path) {return path.name === d.name; }).style("opacity",1);
@@ -299,7 +299,7 @@ var round = candidates.append("circle")
   // update label.name to the name of the artists in a tie 
   // make sure to uncomment below 
 
-
+/*
       // overlap 1
   label.filter(function(label){
         return label.name === "Bob Odenkirk";
@@ -309,7 +309,7 @@ var round = candidates.append("circle")
         return label.name === "Anthony Anderson";
       }).transition().duration(10).attr("transform", function(d) { return "translate(" + (x(d.values[0].week) + 20) + "," + (y(d.values[0].rank) + 12) + ")"; })
 
-  // end 
+  // end */
 
   var week = 1;
 
