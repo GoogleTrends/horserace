@@ -189,27 +189,39 @@ svg.append("g")
 
 // to assign color for each candidate
 function colorFilter(d){
-    if (d.name === "Black Lives Matter"){
-        return "#9E9E9E";
-      } else if (d.name === "Taxes"){
-        return "#D83153";
-      } else if (d.name === "Health Care"){
-        return "#7B1FA2";
+    if (d.name === "Climate Change") {
+          return "#C53929";
       } else if (d.name === "Immigration"){
-        return "#3367D6";
-      } else if (d.name === "Clinton's Emails"){
-        return "#4285F4";
+        return "#E91E63";
+      } else if (d.name === "Health Care"){
+        return "#D83153";
       } else if (d.name === "Abortion"){
-        return "#303F9F"; 
-      } else if (d.name === "Same-Sex Marriage"){
-        return "#0B8043";
-      } else if (d.name === "Patriot Act"){
-        return "#8BC34A";
-      } else if (d.name === "Economy"){
-        return "#FBC02D";
+        return "#7B1FA2";
       } else if (d.name === "Gun Control"){
+        return "#3367D6";
+      } else if (d.name === "Patriot Act"){
+        return "#4285F4";
+      } else if (d.name === "Economy"){
+        return "#303F9F"; 
+      } else if (d.name === "Clinton's Emails"){
+        return "#00BCD4";
+      } else if (d.name === "Black Lives Matter"){
+        return "#0B8043";
+      } else if (d.name === "Wall Street"){
+        return "#8BC34A";
+      } else if (d.name === "Same-Sex Marriage"){
+        return "#AFB42B";
+      } else if (d.name === "Marijuana Legalization"){
+        return "#FBC02D";
+      } else if (d.name === "War in Iraq"){
         return "#FF9800";
-      } else if (d.name == "War in Iraq") {
+      } else if (d.name === "Campaign Finance"){
+        return "#E64A19";
+      } else if (d.name == "Jim Gilmore") {
+          return "#5D4037";
+      } else if (d.name == "Mike Huckabee") { 
+          return "#9E9E9E";
+      } else if (d.name == "George Pataki") {
           return "#BA68C8";
       } else {
         return "#E5768C";}
@@ -358,13 +370,13 @@ var round = candidates.append("circle")
 
     
       label.filter(function(label){
-        return label.name === "Economy";
-      }).transition().duration(speed).ease('linear').attr("transform", function(d) {return "translate(" + (x(d.values[week].week) + 20) + "," + (y(d.values[week].rank) + 24) + ")"; })
+        return label.name === "Marijuana Legalization";
+      }).transition().duration(speed).ease('linear').attr("transform", function(d) {return "translate(" + (x(d.values[week].week) + 20) + "," + (y(d.values[week].rank) ) + ")"; })
 
       label.filter(function(label){
-        return label.name === "Same-Sex Marriage";
+        return label.name === "War in Iraq";
       }).transition().duration(speed).ease('linear').attr("transform", function(d) {return "translate(" + (x(d.values[week].week) + 20) + "," + (y(d.values[week].rank) + 12) + ")"; })
-
+/*
       label.filter(function(label){
         return label.name === "War in Iraq";
       }).transition().duration(speed).ease('linear').attr("transform", function(d) {return "translate(" + (x(d.values[week].week) + 20) + "," + (y(d.values[week].rank)) + ")"; })
@@ -389,7 +401,7 @@ var round = candidates.append("circle")
       label.filter(function(label){
         return label.name === "Wall Street";
       }).transition().duration(speed).ease('linear').attr("transform", function(d) {return "translate(" + (x(d.values[week].week) + 20) + "," + (y(d.values[week].rank)) + ")"; })
-
+*/
 
         ranking.transition()
         .duration(speed)
