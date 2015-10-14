@@ -190,11 +190,11 @@ svg.append("g")
 // to assign color for each candidate
 function colorFilter(d){
     if (d.name === "Lincoln Chafee") {
-          return "#C53929";
+          return "#7B1FA2";
       } else if (d.name === "Scott Walker"){
         return "#E91E63";
       } else if (d.name === "Hillary Clinton"){
-        return "#D83153";
+        return "#0B8043";
       } else if (d.name === "Ben Carson"){
         return "#7B1FA2";
       } else if (d.name === "Bernie Sanders"){
@@ -202,11 +202,11 @@ function colorFilter(d){
       } else if (d.name === "Jeb Bush"){
         return "#4285F4";
       } else if (d.name === "Martin O'Malley"){
-        return "#303F9F"; 
+        return "#FBC02D"; 
       } else if (d.name === "Rand Paul"){
         return "#00BCD4";
       } else if (d.name === "Jim Webb"){
-        return "#0B8043";
+        return "#D83153";
       } else if (d.name === "Marco Rubio"){
         return "#8BC34A";
       } else if (d.name === "Joe Biden"){
@@ -298,18 +298,18 @@ var round = candidates.append("circle")
   // FOR TIE BREAKERS @ THE START 
   // update label.name to the name of the artists in a tie 
   // make sure to uncomment below 
-/*
+
 
       // overlap 1
   label.filter(function(label){
-        return label.name === "George Pataki";
+        return label.name === "Martin O'Malley";
       }).transition().duration(10).attr("transform", function(d) { return "translate(" + (x(d.values[0].week) + 20) + "," + (y(d.values[0].rank) ) + ")"; })
 
   label.filter(function(label){
-        return label.name === "Lindsey Graham";
+        return label.name === "Lincoln Chafee";
       }).transition().duration(10).attr("transform", function(d) { return "translate(" + (x(d.values[0].week) + 20) + "," + (y(d.values[0].rank) + 12) + ")"; })
 
-  // end */
+  // end 
 
   var week = 1;
 
