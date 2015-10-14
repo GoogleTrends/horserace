@@ -356,15 +356,40 @@ var round = candidates.append("circle")
     // Change the label.name as needed for both people in a tie 
     // Make sure to uncomment below 
 
-    /*
+    
+      label.filter(function(label){
+        return label.name === "Economy";
+      }).transition().duration(speed).ease('linear').attr("transform", function(d) {return "translate(" + (x(d.values[week].week) + 20) + "," + (y(d.values[week].rank) + 24) + ")"; })
+
       label.filter(function(label){
         return label.name === "Same-Sex Marriage";
+      }).transition().duration(speed).ease('linear').attr("transform", function(d) {return "translate(" + (x(d.values[week].week) + 20) + "," + (y(d.values[week].rank) + 12) + ")"; })
+
+      label.filter(function(label){
+        return label.name === "War in Iraq";
+      }).transition().duration(speed).ease('linear').attr("transform", function(d) {return "translate(" + (x(d.values[week].week) + 20) + "," + (y(d.values[week].rank)) + ")"; })
+
+
+      label.filter(function(label){
+        return label.name === "Abortion";
       }).transition().duration(speed).ease('linear').attr("transform", function(d) {return "translate(" + (x(d.values[week].week) + 20) + "," + (y(d.values[week].rank)) + ")"; })
 
       label.filter(function(label){
-        return label.name === "Economy";
+        return label.name === "Health Care";
       }).transition().duration(speed).ease('linear').attr("transform", function(d) {return "translate(" + (x(d.values[week].week) + 20) + "," + (y(d.values[week].rank) + 12) + ")"; })
-*/
+
+       label.filter(function(label){
+        return label.name === "Gun Control";
+      }).transition().duration(speed).ease('linear').attr("transform", function(d) {return "translate(" + (x(d.values[week].week) + 20) + "," + (y(d.values[week].rank) + 24) + ")"; })
+
+      label.filter(function(label){
+        return label.name === "Clinton's Emails";
+      }).transition().duration(speed).ease('linear').attr("transform", function(d) {return "translate(" + (x(d.values[week].week) + 20) + "," + (y(d.values[week].rank) + 12) + ")"; })
+
+      label.filter(function(label){
+        return label.name === "Wall Street";
+      }).transition().duration(speed).ease('linear').attr("transform", function(d) {return "translate(" + (x(d.values[week].week) + 20) + "," + (y(d.values[week].rank)) + ")"; })
+
 
         ranking.transition()
         .duration(speed)
