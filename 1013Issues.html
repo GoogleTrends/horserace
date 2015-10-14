@@ -189,27 +189,27 @@ svg.append("g")
 
 // to assign color for each candidate
 function colorFilter(d){
-    if (d.name === "Marijuana Legality"){
-        return "#E91E63";
+    if (d.name === "Black Lives Matter"){
+        return "#9E9E9E";
       } else if (d.name === "Taxes"){
         return "#D83153";
       } else if (d.name === "Health Care"){
         return "#7B1FA2";
       } else if (d.name === "Immigration"){
         return "#3367D6";
-      } else if (d.name === "Iran Nuclear Deal"){
+      } else if (d.name === "Clinton's Emails"){
         return "#4285F4";
       } else if (d.name === "Abortion"){
         return "#303F9F"; 
       } else if (d.name === "Same-Sex Marriage"){
         return "#0B8043";
-      } else if (d.name === "Minimum Wage"){
+      } else if (d.name === "Patriot Act"){
         return "#8BC34A";
       } else if (d.name === "Economy"){
         return "#FBC02D";
       } else if (d.name === "Gun Control"){
         return "#FF9800";
-      } else if (d.name == "ISIS") {
+      } else if (d.name == "War in Iraq") {
           return "#BA68C8";
       } else {
         return "#E5768C";}
@@ -289,11 +289,11 @@ var round = candidates.append("circle")
 
       // overlap 1
   label.filter(function(label){
-        return label.name === "Minimum Wage";
+        return label.name === "Black Lives Matter";
       }).transition().duration(10).attr("transform", function(d) { return "translate(" + (x(d.values[0].week) + 20) + "," + (y(d.values[0].rank) ) + ")"; })
 
   label.filter(function(label){
-        return label.name === "Abortion";
+        return label.name === "War in Iraq";
       }).transition().duration(10).attr("transform", function(d) { return "translate(" + (x(d.values[0].week) + 20) + "," + (y(d.values[0].rank) + 12) + ")"; })
 
   // end 
