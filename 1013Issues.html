@@ -302,11 +302,11 @@ var round = candidates.append("circle")
       // overlap 1
   label.filter(function(label){
         return label.name === "Black Lives Matter";
-      }).transition().duration(10).attr("transform", function(d) { return "translate(" + (x(d.values[0].week) + 20) + "," + (y(d.values[0].rank) ) + ")"; })
+      }).transition().duration(10).attr("transform", function(d) { return "translate(" + (x(d.values[0].week) + 20) + "," + (y(d.values[0].rank)+12) + ")"; })
 
   label.filter(function(label){
         return label.name === "War in Iraq";
-      }).transition().duration(10).attr("transform", function(d) { return "translate(" + (x(d.values[0].week) + 20) + "," + (y(d.values[0].rank) + 12) + ")"; })
+      }).transition().duration(10).attr("transform", function(d) { return "translate(" + (x(d.values[0].week) + 20) + "," + (y(d.values[0].rank)) + ")"; })
 
   // end 
 
@@ -370,22 +370,22 @@ var round = candidates.append("circle")
 
     
       label.filter(function(label){
-        return label.name === "Marijuana Legalization";
+        return label.name === "Abortion";
       }).transition().duration(speed).ease('linear').attr("transform", function(d) {return "translate(" + (x(d.values[week].week) + 20) + "," + (y(d.values[week].rank) ) + ")"; })
 
       label.filter(function(label){
-        return label.name === "War in Iraq";
+        return label.name === "Health Care";
+      }).transition().duration(speed).ease('linear').attr("transform", function(d) {return "translate(" + (x(d.values[week].week) + 20) + "," + (y(d.values[week].rank) + 12) + ")"; })
+
+      label.filter(function(label){
+        return label.name === "Patriot Act";
+      }).transition().duration(speed).ease('linear').attr("transform", function(d) {return "translate(" + (x(d.values[week].week) + 20) + "," + (y(d.values[week].rank)) + ")"; })
+
+
+      label.filter(function(label){
+        return label.name === "Wall Street";
       }).transition().duration(speed).ease('linear').attr("transform", function(d) {return "translate(" + (x(d.values[week].week) + 20) + "," + (y(d.values[week].rank) + 12) + ")"; })
 /*
-      label.filter(function(label){
-        return label.name === "War in Iraq";
-      }).transition().duration(speed).ease('linear').attr("transform", function(d) {return "translate(" + (x(d.values[week].week) + 20) + "," + (y(d.values[week].rank)) + ")"; })
-
-
-      label.filter(function(label){
-        return label.name === "Abortion";
-      }).transition().duration(speed).ease('linear').attr("transform", function(d) {return "translate(" + (x(d.values[week].week) + 20) + "," + (y(d.values[week].rank)) + ")"; })
-
       label.filter(function(label){
         return label.name === "Health Care";
       }).transition().duration(speed).ease('linear').attr("transform", function(d) {return "translate(" + (x(d.values[week].week) + 20) + "," + (y(d.values[week].rank) + 12) + ")"; })
