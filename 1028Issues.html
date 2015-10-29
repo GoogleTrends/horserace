@@ -189,27 +189,39 @@ svg.append("g")
 
 // to assign color for each candidate
 function colorFilter(d){
-    if (d.name === "Marijuana Legality"){
+    if (d.name === "Taxes") {
+          return "#C53929";
+      } else if (d.name === "PAC"){
         return "#E91E63";
-      } else if (d.name === "Taxes"){
-        return "#D83153";
-      } else if (d.name === "Health Care"){
-        return "#7B1FA2";
       } else if (d.name === "Immigration"){
+        return "#D83153";
+      } else if (d.name === "Economy"){
+        return "#7B1FA2";
+      } else if (d.name === "Medicare"){
         return "#3367D6";
-      } else if (d.name === "Iran Nuclear Deal"){
-        return "#4285F4";
       } else if (d.name === "Abortion"){
+        return "#4285F4";
+      } else if (d.name === "Minimum Wage"){
         return "#303F9F"; 
       } else if (d.name === "Same-Sex Marriage"){
+        return "#00BCD4";
+      } else if (d.name === "Marijuana Legality"){
         return "#0B8043";
-      } else if (d.name === "Minimum Wage"){
+      } else if (d.name === "Social Security"){
         return "#8BC34A";
-      } else if (d.name === "Economy"){
+      } else if (d.name === "Climate Change"){
+        return "#AFB42B";
+      } else if (d.name === "Wall Street"){
         return "#FBC02D";
-      } else if (d.name === "Gun Control"){
+      } else if (d.name === "Gender Pay Gap"){
         return "#FF9800";
-      } else if (d.name == "ISIS") {
+      } else if (d.name === "Debt Ceiling"){
+        return "#E64A19";
+      } else if (d.name == "Jim Gilmore") {
+          return "#5D4037";
+      } else if (d.name == "Mike Huckabee") { 
+          return "#9E9E9E";
+      } else if (d.name == "George Pataki") {
           return "#BA68C8";
       } else {
         return "#E5768C";}
@@ -359,11 +371,19 @@ var round = candidates.append("circle")
 
     
       label.filter(function(label){
-        return label.name === "Abortion";
+        return label.name === "Same-Sex Marriage";
       }).transition().duration(speed).ease('linear').attr("transform", function(d) {return "translate(" + (x(d.values[week].week) + 20) + "," + (y(d.values[week].rank)) + ")"; })
 
       label.filter(function(label){
-        return label.name === "Minimum Wage";
+        return label.name === "Marijuana Legality";
+      }).transition().duration(speed).ease('linear').attr("transform", function(d) {return "translate(" + (x(d.values[week].week) + 20) + "," + (y(d.values[week].rank) + 12) + ")"; })
+
+      label.filter(function(label){
+        return label.name === "Gender Pay Gap";
+      }).transition().duration(speed).ease('linear').attr("transform", function(d) {return "translate(" + (x(d.values[week].week) + 20) + "," + (y(d.values[week].rank)) + ")"; })
+
+      label.filter(function(label){
+        return label.name === "Debt Ceiling";
       }).transition().duration(speed).ease('linear').attr("transform", function(d) {return "translate(" + (x(d.values[week].week) + 20) + "," + (y(d.values[week].rank) + 12) + ")"; })
 
 
