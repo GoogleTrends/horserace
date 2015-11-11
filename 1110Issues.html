@@ -191,31 +191,31 @@ svg.append("g")
 function colorFilter(d){
     if (d.name === "Taxes") {
           return "#C53929";
-      } else if (d.name === "ObamaCare"){
-        return "#E91E63";
+      /*} else if (d.name === "ObamaCare"){
+        return "#E91E63"; */
       } else if (d.name === "Immigration"){
         return "#D83153";
       } else if (d.name === "Economy"){
         return "#7B1FA2";
-      } else if (d.name === "Trans-Pacific Partnership"){
+      } else if (d.name === "Trans-Pacific Partnership (TPP)"){
         return "#3367D6";
-      } else if (d.name === "Abortion"){
-        return "#4285F4";
+      /*} else if (d.name === "Abortion"){
+        return "#4285F4";*/
       } else if (d.name === "Minimum Wage"){
         return "#303F9F"; 
-      } else if (d.name === "Same-Sex Marriage"){
-        return "#00BCD4";
-      } else if (d.name === "Marijuana Legality"){
+      /*} else if (d.name === "Income Inequality"){
+        return "#00BCD4";*/
+      } else if (d.name === "Big Banks"){
         return "#0B8043";
       } else if (d.name === "Social Security"){
         return "#8BC34A";
       } else if (d.name === "Climate Change"){
         return "#AFB42B";
-      } else if (d.name === "Wall Street"){
+      } else if (d.name === "Income Inequality"){
         return "#FBC02D";
-      } else if (d.name === "Gender Pay Gap"){
+      } else if (d.name === "Foreign Policy"){
         return "#FF9800";
-      } else if (d.name === "ISIS"){
+      } else if (d.name === "ObamaCare"){
         return "#E64A19";
       } else if (d.name == "Student Loans") {
           return "#5D4037";
@@ -369,7 +369,7 @@ var round = candidates.append("circle")
     // Change the label.name as needed for both people in a tie 
     // Make sure to uncomment below 
 
-    
+    /*
       label.filter(function(label){
         return label.name === "Debt Ceiling";
       }).transition().duration(speed).ease('linear').attr("transform", function(d) {return "translate(" + (x(d.values[week].week) + 20) + "," + (y(d.values[week].rank)) + ")"; })
@@ -386,7 +386,7 @@ var round = candidates.append("circle")
         return label.name === "Gender Pay Gap";
       }).transition().duration(speed).ease('linear').attr("transform", function(d) {return "translate(" + (x(d.values[week].week) + 20) + "," + (y(d.values[week].rank) + 12) + ")"; })
 
-
+*/
         ranking.transition()
         .duration(speed)
         .ease('linear')
