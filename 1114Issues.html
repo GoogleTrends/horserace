@@ -195,7 +195,7 @@ function colorFilter(d){
         return "#E91E63";
       } else if (d.name === "Health Care"){ //
         return "#D83153";
-      } else if (d.name === "Abortion"){
+      } else if (d.name === "Student Debt"){
         return "#7B1FA2";
       } else if (d.name === "Gun Control"){ //
         return "#3367D6";
@@ -209,7 +209,7 @@ function colorFilter(d){
         return "#0B8043";
       } else if (d.name === "Wall Street"){ //
         return "#8BC34A";
-      } else if (d.name === "Same-Sex Marriage"){ //
+      } else if (d.name === "Black Lives Matter"){ //
         return "#AFB42B";
       } else if (d.name === "Terrorism"){ //
         return "#FBC02D";
@@ -301,27 +301,27 @@ var round = candidates.append("circle")
 
       // overlap 1
   label.filter(function(label){
-        return label.name === "Immigration";
+        return label.name === "Black Lives Matter";
       }).transition().duration(10).attr("transform", function(d) { return "translate(" + (x(d.values[0].week) + 20) + "," + (y(d.values[0].rank)+12) + ")"; })
 
   label.filter(function(label){
-        return label.name === "Same-Sex Marriage";
+        return label.name === "Health Care";
       }).transition().duration(10).attr("transform", function(d) { return "translate(" + (x(d.values[0].week) + 20) + "," + (y(d.values[0].rank)) + ")"; })
 
   // overlap 2
   label.filter(function(label){
-        return label.name === "Gun Control";
+        return label.name === "Wall Street";
       }).transition().duration(10).attr("transform", function(d) { return "translate(" + (x(d.values[0].week) + 20) + "," + (y(d.values[0].rank)+12) + ")"; })
 
   label.filter(function(label){
-        return label.name === "Wall Street";
+        return label.name === "Campaign Finance";
       }).transition().duration(10).attr("transform", function(d) { return "translate(" + (x(d.values[0].week) + 20) + "," + (y(d.values[0].rank) + 36) + ")"; })
 
   label.filter(function(label){
-        return label.name === "Campaign Finance";
+        return label.name === "Glass-Steagall Act";
       }).transition().duration(10).attr("transform", function(d) { return "translate(" + (x(d.values[0].week) + 20) + "," + (y(d.values[0].rank) + 24) + ")"; })
   label.filter(function(label){
-        return label.name === "Glass-Steagall Act";
+        return label.name === "Student Debt";
       }).transition().duration(10).attr("transform", function(d) { return "translate(" + (x(d.values[0].week) + 20) + "," + (y(d.values[0].rank)) + ")"; })
 
 
@@ -385,7 +385,7 @@ var round = candidates.append("circle")
     // Change the label.name as needed for both people in a tie 
     // Make sure to uncomment below 
 
-    
+/*    
       label.filter(function(label){
         return label.name === "Same-Sex Marriage";
       }).transition().duration(speed).ease('linear').attr("transform", function(d) {return "translate(" + (x(d.values[week].week) + 20) + "," + (y(d.values[week].rank) +24) + ")"; })
@@ -406,7 +406,7 @@ var round = candidates.append("circle")
       label.filter(function(label){
         return label.name === "Campaign Finance";
       }).transition().duration(speed).ease('linear').attr("transform", function(d) {return "translate(" + (x(d.values[week].week) + 20) + "," + (y(d.values[week].rank) ) + ")"; })
-
+*/
 
         ranking.transition()
         .duration(speed)
