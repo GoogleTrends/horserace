@@ -384,7 +384,7 @@ var round = candidates.append("circle")
     // FOR END TIE BREAKERS 
     // Change the label.name as needed for both people in a tie 
     // Make sure to uncomment below 
-
+/*
 
       label.filter(function(label){
         return label.name === "Health Care";
@@ -396,7 +396,7 @@ var round = candidates.append("circle")
 
       label.filter(function(label){
         return label.name === "Minimum Wage";
-      }).transition().duration(speed).ease('linear').attr("transform", function(d) {return "translate(" + (x(d.values[week].week) + 20) + "," + (y(d.values[week].rank) ) + ")"; })
+      }).transition().duration(speed).ease('linear').attr("transform", function(d) {return "translate(" + (x(d.values[week].week) + 20) + "," + (y(d.values[week].rank) ) + ")"; }) */
 
 //overlap 2
       label.filter(function(label){
@@ -412,13 +412,13 @@ var round = candidates.append("circle")
 
 
       label.filter(function(label){
-        return label.name === "Black Lives Matter";
-      }).transition().duration(speed).ease('linear').attr("transform", function(d) {return "translate(" + (x(d.values[week].week) + 20) + "," + (y(d.values[week].rank)) + ")"; })
+        return label.name === "Health Care";
+      }).transition().duration(speed).ease('linear').attr("transform", function(d) {return "translate(" + (x(d.values[week].week) + 20) + "," + (y(d.values[week].rank) +12) + ")"; })
 
 
       label.filter(function(label){
-        return label.name === "Refugees";
-      }).transition().duration(speed).ease('linear').attr("transform", function(d) {return "translate(" + (x(d.values[week].week) + 20) + "," + (y(d.values[week].rank) +12) + ")"; })
+        return label.name === "Black Lives Matter";
+      }).transition().duration(speed).ease('linear').attr("transform", function(d) {return "translate(" + (x(d.values[week].week) + 20) + "," + (y(d.values[week].rank)) + ")"; })
 
 
 
