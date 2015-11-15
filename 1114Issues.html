@@ -298,15 +298,15 @@ var round = candidates.append("circle")
   // update label.name to the name of the artists in a tie 
   // make sure to uncomment below 
 
-/*
+
       // overlap 1
   label.filter(function(label){
-        return label.name === "Black Lives Matter";
+        return label.name === "Health Care";
       }).transition().duration(10).attr("transform", function(d) { return "translate(" + (x(d.values[0].week) + 20) + "," + (y(d.values[0].rank)+12) + ")"; })
 
   label.filter(function(label){
-        return label.name === "Health Care";
-      }).transition().duration(10).attr("transform", function(d) { return "translate(" + (x(d.values[0].week) + 20) + "," + (y(d.values[0].rank)) + ")"; })
+        return label.name === "Black Lives Matter";
+      }).transition().duration(10).attr("transform", function(d) { return "translate(" + (x(d.values[0].week) + 20) + "," + (y(d.values[0].rank)) + ")"; }) 
 
   // overlap 2
   label.filter(function(label){
@@ -325,7 +325,7 @@ var round = candidates.append("circle")
       }).transition().duration(10).attr("transform", function(d) { return "translate(" + (x(d.values[0].week) + 20) + "," + (y(d.values[0].rank)) + ")"; })
 
 
-  // end */
+  // end 
 
   var week = 1;
 
@@ -385,28 +385,43 @@ var round = candidates.append("circle")
     // Change the label.name as needed for both people in a tie 
     // Make sure to uncomment below 
 
-/*    
-      label.filter(function(label){
-        return label.name === "Same-Sex Marriage";
-      }).transition().duration(speed).ease('linear').attr("transform", function(d) {return "translate(" + (x(d.values[week].week) + 20) + "," + (y(d.values[week].rank) +24) + ")"; })
 
       label.filter(function(label){
         return label.name === "Health Care";
-      }).transition().duration(speed).ease('linear').attr("transform", function(d) {return "translate(" + (x(d.values[week].week) + 20) + "," + (y(d.values[week].rank) + 12) + ")"; })
-
-      label.filter(function(label){
-        return label.name === "Refugees";
-      }).transition().duration(speed).ease('linear').attr("transform", function(d) {return "translate(" + (x(d.values[week].week) + 20) + "," + (y(d.values[week].rank) ) + ")"; })
-
-
-      label.filter(function(label){
-        return label.name === "War in Iraq";
       }).transition().duration(speed).ease('linear').attr("transform", function(d) {return "translate(" + (x(d.values[week].week) + 20) + "," + (y(d.values[week].rank) +12) + ")"; })
 
       label.filter(function(label){
-        return label.name === "Campaign Finance";
+        return label.name === "War in Iraq";
+      }).transition().duration(speed).ease('linear').attr("transform", function(d) {return "translate(" + (x(d.values[week].week) + 20) + "," + (y(d.values[week].rank) +24) + ")"; })
+
+      label.filter(function(label){
+        return label.name === "Minimum Wage";
       }).transition().duration(speed).ease('linear').attr("transform", function(d) {return "translate(" + (x(d.values[week].week) + 20) + "," + (y(d.values[week].rank) ) + ")"; })
-*/
+
+//overlap 2
+      label.filter(function(label){
+        return label.name === "Campaign Finance";
+      }).transition().duration(speed).ease('linear').attr("transform", function(d) {return "translate(" + (x(d.values[week].week) + 20) + "," + (y(d.values[week].rank) +12) + ")"; })
+
+
+      label.filter(function(label){
+        return label.name === "Student Debt";
+      }).transition().duration(speed).ease('linear').attr("transform", function(d) {return "translate(" + (x(d.values[week].week) + 20) + "," + (y(d.values[week].rank)) + ")"; })
+
+    
+
+
+      label.filter(function(label){
+        return label.name === "Black Lives Matter";
+      }).transition().duration(speed).ease('linear').attr("transform", function(d) {return "translate(" + (x(d.values[week].week) + 20) + "," + (y(d.values[week].rank)) + ")"; })
+
+
+      label.filter(function(label){
+        return label.name === "Refugees";
+      }).transition().duration(speed).ease('linear').attr("transform", function(d) {return "translate(" + (x(d.values[week].week) + 20) + "," + (y(d.values[week].rank) +12) + ")"; })
+
+
+
 
         ranking.transition()
         .duration(speed)
