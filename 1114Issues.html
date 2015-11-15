@@ -117,7 +117,7 @@ var clip = svg.append("clipPath")
     .attr("width", 0)
     .attr("height", height*1.2);
 
-d3.csv("1013Issues.csv", function(error, data) {
+d3.csv("1114Issues.csv", function(error, data) {
   
   color.domain(d3.keys(data[0]).filter(function(key) { return key !== "week" && key !== 'time'; }));
 
@@ -189,39 +189,39 @@ svg.append("g")
 
 // to assign color for each candidate
 function colorFilter(d){
-    if (d.name === "Climate Change") {
+    if (d.name === "Climate Change") { //
           return "#C53929";
-      } else if (d.name === "Immigration"){
+      } else if (d.name === "Immigration"){ //
         return "#E91E63";
-      } else if (d.name === "Health Care"){
+      } else if (d.name === "Health Care"){ //
         return "#D83153";
       } else if (d.name === "Abortion"){
         return "#7B1FA2";
-      } else if (d.name === "Gun Control"){
+      } else if (d.name === "Gun Control"){ //
         return "#3367D6";
-      } else if (d.name === "Patriot Act"){
+      } else if (d.name === "Minimum Wage"){
         return "#4285F4";
-      } else if (d.name === "Economy"){
+      } else if (d.name === "Paris"){ //
         return "#303F9F"; 
-      } else if (d.name === "Clinton's Emails"){
+      } else if (d.name === "Minimum Wage"){ //
         return "#00BCD4";
-      } else if (d.name === "Black Lives Matter"){
+      } else if (d.name === "Glass-Steagall Act"){ //
         return "#0B8043";
-      } else if (d.name === "Wall Street"){
+      } else if (d.name === "Wall Street"){ //
         return "#8BC34A";
-      } else if (d.name === "Same-Sex Marriage"){
+      } else if (d.name === "Same-Sex Marriage"){ //
         return "#AFB42B";
-      } else if (d.name === "Marijuana Legalization"){
+      } else if (d.name === "Terrorism"){ //
         return "#FBC02D";
-      } else if (d.name === "War in Iraq"){
+      } else if (d.name === "War in Iraq"){ //
         return "#FF9800";
-      } else if (d.name === "Campaign Finance"){
+      } else if (d.name === "Campaign Finance"){ //
         return "#E64A19";
-      } else if (d.name == "Jim Gilmore") {
+      } else if (d.name == "Climate Change") {
           return "#5D4037";
-      } else if (d.name == "Mike Huckabee") { 
+      } else if (d.name == "ISIS") {  // 
           return "#9E9E9E";
-      } else if (d.name == "George Pataki") {
+      } else if (d.name == "Refugees") { //
           return "#BA68C8";
       } else {
         return "#E5768C";}
@@ -298,15 +298,32 @@ var round = candidates.append("circle")
   // update label.name to the name of the artists in a tie 
   // make sure to uncomment below 
 
-/*
+
       // overlap 1
   label.filter(function(label){
-        return label.name === "Black Lives Matter";
+        return label.name === "Immigration";
       }).transition().duration(10).attr("transform", function(d) { return "translate(" + (x(d.values[0].week) + 20) + "," + (y(d.values[0].rank)+12) + ")"; })
 
   label.filter(function(label){
-        return label.name === "War in Iraq";
+        return label.name === "Same-Sex Marriage";
       }).transition().duration(10).attr("transform", function(d) { return "translate(" + (x(d.values[0].week) + 20) + "," + (y(d.values[0].rank)) + ")"; })
+
+  // overlap 2
+  label.filter(function(label){
+        return label.name === "Gun Control";
+      }).transition().duration(10).attr("transform", function(d) { return "translate(" + (x(d.values[0].week) + 20) + "," + (y(d.values[0].rank)+12) + ")"; })
+
+  label.filter(function(label){
+        return label.name === "Wall Street";
+      }).transition().duration(10).attr("transform", function(d) { return "translate(" + (x(d.values[0].week) + 20) + "," + (y(d.values[0].rank) + 36) + ")"; })
+
+  label.filter(function(label){
+        return label.name === "Campaign Finance";
+      }).transition().duration(10).attr("transform", function(d) { return "translate(" + (x(d.values[0].week) + 20) + "," + (y(d.values[0].rank) + 24) + ")"; })
+  label.filter(function(label){
+        return label.name === "Glass-Steagall Act";
+      }).transition().duration(10).attr("transform", function(d) { return "translate(" + (x(d.values[0].week) + 20) + "," + (y(d.values[0].rank)) + ")"; })
+
 
   // end */
 
@@ -368,15 +385,28 @@ var round = candidates.append("circle")
     // Change the label.name as needed for both people in a tie 
     // Make sure to uncomment below 
 
-    /*
+    
       label.filter(function(label){
-        return label.name === "Abortion";
-      }).transition().duration(speed).ease('linear').attr("transform", function(d) {return "translate(" + (x(d.values[week].week) + 20) + "," + (y(d.values[week].rank) ) + ")"; })
+        return label.name === "Same-Sex Marriage";
+      }).transition().duration(speed).ease('linear').attr("transform", function(d) {return "translate(" + (x(d.values[week].week) + 20) + "," + (y(d.values[week].rank) +24) + ")"; })
 
       label.filter(function(label){
         return label.name === "Health Care";
       }).transition().duration(speed).ease('linear').attr("transform", function(d) {return "translate(" + (x(d.values[week].week) + 20) + "," + (y(d.values[week].rank) + 12) + ")"; })
-*/
+
+      label.filter(function(label){
+        return label.name === "Refugees";
+      }).transition().duration(speed).ease('linear').attr("transform", function(d) {return "translate(" + (x(d.values[week].week) + 20) + "," + (y(d.values[week].rank) ) + ")"; })
+
+
+      label.filter(function(label){
+        return label.name === "War in Iraq";
+      }).transition().duration(speed).ease('linear').attr("transform", function(d) {return "translate(" + (x(d.values[week].week) + 20) + "," + (y(d.values[week].rank) +12) + ")"; })
+
+      label.filter(function(label){
+        return label.name === "Campaign Finance";
+      }).transition().duration(speed).ease('linear').attr("transform", function(d) {return "translate(" + (x(d.values[week].week) + 20) + "," + (y(d.values[week].rank) ) + ")"; })
+
 
         ranking.transition()
         .duration(speed)
