@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+  <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Language" content="en" />
+    <title>Google Trends</title>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+     <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+</head>
+
+
+<style>
+
+body {
+  font-size: 12px;
+  font-family: 'Roboto', sans-serif;
+  margin-top: 20px;
+}
+
+li{
+    margin-left: 30px;
+    }
+
+.x.axis path {
+  display: none;
+}
+
+
+.x.axis text, .y.axis text{
+      font-size: 10px;
+      fill:grey;
+    }
+
+.line {
+  fill: none;
+  stroke-width: 2px;
+}
+
+.tick line{
+    stroke: #e0e1e1;
+    opacity: 1;
+    }
+ 
+ a:hover{
+      cursor:pointer;
+    }
+
+</style>
+
+
+<body>
+<div class="bs-example">
+    <ul class="nav nav-pills" role="tablist">
+      <li role="presentation" class="active" id="replay"><a data-target="#">Replay Race</a></li>
+    </ul> 
+  </div> 
+<div id="graphic"></div>
+
+
+<script src="http://d3js.org/d3.v3.js"></script>
+
+<script>
+
+function drawGrahpics(){
+
+var margin = {top: 100, right: 160, bottom: 75, left: 60},
+    width = 960 - margin.left - margin.right,
+    height = 400 - margin.top - margin.bottom;
+
+var speed = 700;
+
+var x = d3.scale.linear()
+    .range([0, width]);
+
+var y = d3.scale.linear()
+    .range([height, 0]);
+
+var color = d3.scale.category10();
+
+
+var xAxis = d3.svg.axis()
+    .scale(x)
+    .tickSize(0)
+    .orient("top");
+
+// set the tickValues and remove the decimal numbers 
+
+var yAxis = d3.svg.axis()
+    .scale(y)
+    .tickValues([1,2,3])
+    .tickFormat(d3.format(".0f"))
+    .innerTickSize(- width)
+    .tickPadding(10)
+    .outerTickSize(0)
+    .orient("left");
+
+
+var line = d3.svg.line()
+    .x(function(d) { return x(d.week); })
+    .y(function(d) { return y(d.rank); });
+
+
+var svg = d3.select("#graphic").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+    .call(responsivefy)
+    .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+var clip = svg.append("clipPath")
+    .attr("id", "clip")
+    .append("rect")
+    .attr("x","-5")
+    .attr("y","-20")
+    .attr("width", 0)
+    .attr("height", height*1.2);
+
+d3.csv("0219IrishElection.csv", function(error, data) {
+  
+  color.domain(d3.keys(data[0]).filter(function(key) { return key !== "week" && key !== 'time'; }));
+
+  data.forEach(function(d) {
+    d.week = +[d.week];
+  });
+
+  var candidates = color.domain().map(function(name) {
+    return {
+      name: name,
+      values: data.map(function(d) {
+        return {name:name, week: d.week, rank: +d[name]};
+      })
+    };
+  });
+
+  var xtickLabels = getCol(data, "time"); 
+  
+  xAxis.tickFormat(function(d,i){ return xtickLabels[i]}) 
+       .ticks(xtickLabels.length);
+
+  yAxis.ticks(candidates.length);
+
+  x.domain(d3.extent(data, function(d) { return d.week; }));
+
+
+
+  y.domain([
+    d3.min(candidates, function(c) { return d3.min(c.values, function(v) { return v.rank ; }); }),
+    d3.max(candidates, function(c) { return d3.max(c.values, function(v) { return v.rank ; }); })
+  ].reverse());
+
+
+svg.append("g")
+      .attr("class", "x axis")
+      .attr("transform","translate(0,0)")
+      .call(xAxis)
+      .selectAll("text")
+      .style("text-anchor","start")
+      .attr("dx", "2.3em")
+      .attr("dy", "-0.9em") 
+      .attr("transform",function(d){
+        return "rotate(-60)"});
+
+  svg.append("g")
+      .attr("class", "y axis")
+      .call(yAxis)
+
+  svg.append("line")
+        .attr(
+        {
+            "class":"horizontalGrid",
+            "x1" : -2,
+            "x2" : width,
+            "y1" : y(1) - 13,
+            "y2" : y(1) - 13,
+            "fill" : "none",
+            "shape-rendering" : "crispEdges",
+            "stroke" : "#e0e1e1",
+            "stroke-width" : "1px",
+            "stroke-dasharray": ("3, 3")
+        })
+        .attr("clip-path", function(d) { return "url(#clip)"; });
+ 
+  var candidates = svg.selectAll(".candidate")
+      .data(candidates)
+    .enter().append("g")
+      .attr("class", "candidate");
+
+// to assign color for each candidate
+function colorFilter(d){
+    if (d.name === "Affordable housing") {
+          return "#7B1FA2";
+      } else if (d.name === "Public housing"){
+        return "#E91E63";
+      } else if (d.name === "Mortgage loan "){
+        return "#0B8043";
+      } else if (d.name === "Health care"){
+        return "#7B1FA2";
+      } else if (d.name === "Medical card"){
+        return "#3367D6";
+      } else if (d.name === "Education"){
+        return "#4285F4";
+      } else if (d.name === "Water charges"){
+        return "#FBC02D"; 
+      } else if (d.name === "Jobs"){
+        return "#00BCD4";
+      } else if (d.name === "Abortion"){
+        return "#D83153";
+      } else if (d.name === "Crime"){
+        return "#8BC34A";
+      } else if (d.name === "Tax"){
+        return "#AFB42B";
+      } else if (d.name === "Economy"){
+        return "#FBC02D";
+      } else if (d.name === "Environment"){
+        return "#FF9800";
+      } else if (d.name === "Flood"){
+        return "#E64A19";
+      } else if (d.name == "ISIS") {
+          return "#5D4037";
+      } else if (d.name == "Mike Huckabee") { 
+          return "#9E9E9E";
+      } else if (d.name == "George Pataki") {
+          return "#BA68C8";
+      } else {
+        return "#E5768C";}
+    }
+
+
+
+  var path = svg.selectAll(".candidate").append("path")
+      .attr("class", "line")
+      .attr("d", function(d) { return line(d.values); })
+      .attr("clip-path", function(d) { return "url(#clip)"; })
+      .style("stroke", colorFilter);
+
+var circleStart = candidates.append("circle")
+      .attr("cx", "0")
+      .attr("cy", function(d) { return y(d.values[0].rank); })
+      .style("fill", colorFilter)
+      .attr("r", 2)
+
+var circleEnd = candidates.append("circle")
+      .attr("cx", function(d) { return x(d.values[0].week); })
+      .attr("cy", function(d) { return y(d.values[0].rank);} )
+      .style("fill", colorFilter)
+      .attr("r", 2);
+
+var timemark = candidates.append("path")
+                  .attr("d", d3.svg.symbol().type("triangle-up"))
+                  .style("fill", "grey")
+                  .attr("transform",function(d) { return "translate(" + (x(d.values[0].week) ) + "," + (y(1)-15) + ") rotate(-30)"; })
+
+
+var round = candidates.append("circle")
+      .attr("transform", function(d) { return "translate(" + (x(d.values[0].week) + 15) + "," + (y(d.values[0].rank)) + ")"; })
+      .attr("x", 0)
+      .attr("y",0)
+      .attr("r", 8)
+      .on("mouseover", function (d) {
+        candidates.style("opacity",0.1);
+        candidates.filter(function(path) {return path.name === d.name; }).style("opacity",1);
+      })
+      .on("mouseout", function (d) { candidates.style("opacity",1); })
+      .style("fill", colorFilter);
+
+
+  var ranking = candidates.append("text")
+      .attr("transform", function(d) { return "translate(" + (x(d.values[0].week) + 15 ) + "," + (y(d.values[0].rank) ) + ")"; })
+      .attr("x", 0)
+      .attr("dy", ".31em")
+      .attr("text-anchor","middle")
+      .on("mouseover", function (d) {
+        candidates.style("opacity",0.1);
+        candidates.filter(function(path) {return path.name === d.name; }).style("opacity",1);
+      })
+      .on("mouseout", function (d) { candidates.style("opacity",1); })
+      .style("cursor","pointer")
+      .style("fill", "#ffffff")
+      .style("font-weight", "bold")
+      .text(function(d) { return d.values[0].rank; });
+
+  var label = candidates.append("text")
+      .attr("transform", function(d) { return "translate(" + (x(d.values[0].week) + 20) + "," + (y(d.values[0].rank) ) + ")"; })
+      .attr("x", 8)
+      .attr("dy", ".31em")
+      .on("mouseover", function (d) {
+        candidates.style("opacity",0.1);
+        candidates.filter(function(path) {return path.name === d.name; }).style("opacity",1);
+      })
+      .on("mouseout", function (d) { candidates.style("opacity",1); })
+      .style("cursor","pointer")
+      .style("fill", colorFilter)
+      .style("font-weight", "bold")
+      .text(function(d) { return d.name; });
+
+  // FOR TIE BREAKERS @ THE START 
+  // update label.name to the name of the artists in a tie 
+  // make sure to uncomment below 
+/*
+
+      // overlap 1
+  label.filter(function(label){
+        return label.name === "Martin O'Malley";
+      }).transition().duration(10).attr("transform", function(d) { return "translate(" + (x(d.values[0].week) + 20) + "," + (y(d.values[0].rank) ) + ")"; })
+
+  label.filter(function(label){
+        return label.name === "Lincoln Chafee";
+      }).transition().duration(10).attr("transform", function(d) { return "translate(" + (x(d.values[0].week) + 20) + "," + (y(d.values[0].rank) + 12) + ")"; })
+*/
+  // end 
+
+  var week = 1;
+
+  var transition = d3.transition()
+    .delay(800)
+    .duration(speed)
+    .each("start", function start() {         
+
+      label.transition()
+        .duration(speed)
+        .ease('linear')
+      .attr("transform", function(d) { return "translate(" + (x(d.values[week].week) + 20) + "," + (y(d.values[week].rank)) + ")"; })
+      .text(function(d) { return  d.name; });
+
+      ranking.transition()
+        .duration(speed)
+        .ease('linear')
+        .attr("transform", function(d) { return "translate(" + (x(d.values[week].week) + 15) + "," + (y(d.values[week].rank) ) + ")"; })
+      .text(function(d,i) { return  d.values[week].rank; });
+
+      round.transition()
+        .duration(speed)
+        .ease('linear')
+        .attr("transform", function(d) { return "translate(" + (x(d.values[week].week) + 15) + "," + (y(d.values[week].rank)) + ")"; });
+    
+      circleEnd.transition()
+        .duration(speed)
+        .ease('linear')
+        .attr("cx", function(d) { return x(d.values[week].week); })
+        .attr("cy", function(d) { return y(d.values[week].rank); });
+
+      clip.transition()
+        .duration(speed)
+        .ease('linear')
+        .attr("width", x(week+1)+5)
+        .attr("height", height*1.2);
+
+      timemark.transition()
+         .duration(speed)
+         .ease('linear')
+         .attr("transform",function(d) { return "translate(" + (x(d.values[week].week) ) + "," + (y(1)-15) + ") rotate(-30)"; })
+    
+    if (week !== xtickLabels.length - 1){
+       
+        week+=1;
+
+        transition = transition.transition().each("start", start);} 
+
+     else if (week === xtickLabels.length - 1){
+
+      label.transition()
+        .duration(speed)
+        .ease('linear')
+        .attr("transform", function(d) {return "translate(" + (x(d.values[week].week) + 20) + "," + (y(d.values[week].rank)) + ")"; })
+
+    // FOR END TIE BREAKERS 
+    // Change the label.name as needed for both people in a tie 
+    // Make sure to uncomment below 
+/*
+    
+      label.filter(function(label){
+        return label.name === "Rick Santorum";
+      }).transition().duration(speed).ease('linear').attr("transform", function(d) {return "translate(" + (x(d.values[week].week) + 20) + "," + (y(d.values[week].rank)) + ")"; })
+
+      label.filter(function(label){
+        return label.name === "Marco Rubio";
+      }).transition().duration(speed).ease('linear').attr("transform", function(d) {return "translate(" + (x(d.values[week].week) + 20) + "," + (y(d.values[week].rank) + 12) + ")"; })
+
+*/
+        ranking.transition()
+        .duration(speed)
+        .ease('linear')
+        .attr("transform", function(d) { return "translate(" + (x(d.values[week].week) + 15) + "," + (y(d.values[week].rank) ) + ")"; })
+        .text(function(d,i) { return  d.values[week].rank; });
+
+      round.transition()
+        .duration(speed)
+        .ease('linear')
+        .attr("transform", function(d) { return "translate(" + (x(d.values[week].week) + 15) + "," + (y(d.values[week].rank)) + ")"; });
+    
+      circleEnd.transition()
+        .duration(speed)
+        .ease('linear')
+        .attr("cx", function(d) { return x(d.values[week].week); })
+        .attr("cy", function(d) { return y(d.values[week].rank); });
+
+      clip.transition()
+        .duration(speed)
+        .ease('linear')
+        .attr("width", x(week+1)+5)
+        .attr("height", height*1.2);
+
+      timemark.transition()
+         .duration(speed)
+         .ease('linear')
+         .attr("transform",function(d) { return "translate(" + (x(d.values[week].week) ) + "," + (y(1)-15) + ") rotate(-30)"; })
+
+     }
+
+      
+    })
+
+
+});
+
+      function responsivefy(svg) {
+
+        var container = d3.select(svg.node().parentNode),
+            width = parseInt(svg.style("width")),
+            height = parseInt(svg.style("height")),
+            aspect = width / height;
+
+        svg.attr("viewBox", "0 0 " + width + " " + height)
+            .attr("perserveAspectRatio", "xMinYMid")
+            .call(resize);
+
+        d3.select(window).on("resize." + container.attr("#graphic"), resize);
+
+        function resize() {
+            var targetWidth = parseInt(container.style("width"));
+            svg.attr("width", targetWidth);
+            svg.attr("height", Math.round(targetWidth /aspect));
+        }  
+    }
+
+}
+
+function getCol(matrix, col){
+  var column = [];
+  
+  for(var i=0; i<matrix.length; i++) {
+    column.push(matrix[i][col]);}
+  
+  return column;
+}
+
+</script>
+
+</body>
+
+<script>
+
+drawGrahpics();
+
+d3.select("#replay")
+    .on("click", function(){
+      location.reload()
+    })
+
+
+
+
+</script>
+
+</html>
