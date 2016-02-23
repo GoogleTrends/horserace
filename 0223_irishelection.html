@@ -68,11 +68,11 @@ li{
 
 function drawGrahpics(){
 
-var margin = {top: 100, right: 160, bottom: 10, left: 60},
+var margin = {top: 100, right: 160, bottom: 75, left: 60},
     width = 960 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;
+    height = 400 - margin.top - margin.bottom;
 
-var speed = 600;
+var speed = 700;
 
 var x = d3.scale.linear()
     .range([0, width]);
@@ -86,19 +86,14 @@ var color = d3.scale.category10();
 var xAxis = d3.svg.axis()
     .scale(x)
     .tickSize(0)
-    .ticks(25)
     .orient("top");
 
-var xtickLabels = ["Dec 28, 2014","Jan 4, 2015","Jan 11, 2015","Jan 18, 2015","Jan 25, 2015","Feb 1,2015","Feb 8, 2015","Feb 15, 2015","Feb 22, 2015","Mar 1, 2015","Mar 8, 2015","Mar 15, 2015","Mar 22, 2015","Mar 29, 2015","Apr 5, 2015","Apr 12, 2015","Apr 19, 2015","Apr 26, 2015","May 3, 2015","May 10, 2015","May 17, 2015","May 24, 2015","May 31, 2015","Jun 7, 2015","Jun 14, 2015"];
-
-xAxis.tickFormat(function(d,i){
-    return xtickLabels[i]
-  });
+// set the tickValues and remove the decimal numbers 
 
 var yAxis = d3.svg.axis()
     .scale(y)
-    .tickFormat(function(d) { return d;})
-    .ticks(16)
+    .tickValues([1,2,3])
+    .tickFormat(d3.format(".0f"))
     .innerTickSize(- width)
     .tickPadding(10)
     .outerTickSize(0)
@@ -125,14 +120,13 @@ var clip = svg.append("clipPath")
     .attr("width", 0)
     .attr("height", height*1.2);
 
-d3.csv("rankdata.csv", function(error, data) {
+d3.csv("0223_irishelection.csv", function(error, data) {
   
-  color.domain(d3.keys(data[0]).filter(function(key) { return key !== "week"; }));
+  color.domain(d3.keys(data[0]).filter(function(key) { return key !== "week" && key !== 'time'; }));
 
   data.forEach(function(d) {
     d.week = +[d.week];
   });
-
 
   var candidates = color.domain().map(function(name) {
     return {
@@ -143,8 +137,15 @@ d3.csv("rankdata.csv", function(error, data) {
     };
   });
 
+  var xtickLabels = getCol(data, "time"); 
+  
+  xAxis.tickFormat(function(d,i){ return xtickLabels[i]}) 
+       .ticks(xtickLabels.length);
+
+  yAxis.ticks(candidates.length);
 
   x.domain(d3.extent(data, function(d) { return d.week; }));
+
 
 
   y.domain([
@@ -168,15 +169,14 @@ svg.append("g")
       .attr("class", "y axis")
       .call(yAxis)
 
-  //timeline 
   svg.append("line")
         .attr(
         {
             "class":"horizontalGrid",
             "x1" : -2,
             "x2" : width,
-            "y1" : y(0) + 20,
-            "y2" : y(0) + 20,
+            "y1" : y(1) - 13,
+            "y2" : y(1) - 13,
             "fill" : "none",
             "shape-rendering" : "crispEdges",
             "stroke" : "#e0e1e1",
@@ -184,64 +184,89 @@ svg.append("g")
             "stroke-dasharray": ("3, 3")
         })
         .attr("clip-path", function(d) { return "url(#clip)"; });
-
-
-        
-       
-  //end of timeline
-
  
-
   var candidates = svg.selectAll(".candidate")
       .data(candidates)
     .enter().append("g")
       .attr("class", "candidate");
+
+// to assign color for each candidate
+function colorFilter(d){
+    if (d.name === "Affordable housing") {
+          return "#7B1FA2";
+      } else if (d.name === "Public housing"){
+        return "#E91E63";
+      } else if (d.name === "Mortgage loan"){
+        return "#0B8043";
+      } else if (d.name === "Health care/health"){
+        return "#7B1FA2";
+      } else if (d.name === "Medical card"){
+        return "#3367D6";
+      } else if (d.name === "Education"){
+        return "#4285F4";
+      } else if (d.name === "Water charges"){
+        return "#FBC02D"; 
+      } else if (d.name === "Jobs"){
+        return "#00BCD4";
+      } else if (d.name === "Abortion"){
+        return "#D83153";
+      } else if (d.name === "Crime"){
+        return "#8BC34A";
+      } else if (d.name === "Joe Biden"){
+        return "#AFB42B";
+      } else if (d.name === "Tax"){
+        return "#FBC02D";
+      } else if (d.name === "Economy"){
+        return "#FF9800";
+      } else if (d.name === "Environment"){
+        return "#E64A19";
+      } else if (d.name == "Flood") {
+          return "#5D4037";
+      } else if (d.name == "ISIS") { 
+          return "#9E9E9E";
+      } else if (d.name == "George Pataki") {
+          return "#BA68C8";
+      } else {
+        return "#E5768C";}
+    }
+
 
 
   var path = svg.selectAll(".candidate").append("path")
       .attr("class", "line")
       .attr("d", function(d) { return line(d.values); })
       .attr("clip-path", function(d) { return "url(#clip)"; })
-      .style("stroke", "#ce3b69");
-      
- 
+      .style("stroke", colorFilter);
 
 var circleStart = candidates.append("circle")
       .attr("cx", "0")
       .attr("cy", function(d) { return y(d.values[0].rank); })
-      .style("fill", "#ce3b69")
+      .style("fill", colorFilter)
       .attr("r", 2)
-
- 
 
 var circleEnd = candidates.append("circle")
       .attr("cx", function(d) { return x(d.values[0].week); })
       .attr("cy", function(d) { return y(d.values[0].rank);} )
-      .style("fill", "#ce3b69")
+      .style("fill", colorFilter)
       .attr("r", 2);
 
- // var timemark = candidates.append("circle")
- //    .attr("cx",function(d) { return x(d.values[0].week); })
- //    .attr("cy",y(0)+20)
- //    .attr("r",3)
- //    .style("fill","grey")
 var timemark = candidates.append("path")
                   .attr("d", d3.svg.symbol().type("triangle-up"))
                   .style("fill", "grey")
-                  .attr("transform",function(d) { return "translate(" + (x(d.values[0].week) ) + "," + (y(0)+18) + ") rotate(-30)"; })
+                  .attr("transform",function(d) { return "translate(" + (x(d.values[0].week) ) + "," + (y(1)-15) + ") rotate(-30)"; })
 
 
 var round = candidates.append("circle")
       .attr("transform", function(d) { return "translate(" + (x(d.values[0].week) + 15) + "," + (y(d.values[0].rank)) + ")"; })
       .attr("x", 0)
       .attr("y",0)
-      .attr("r", 10)
+      .attr("r", 8)
       .on("mouseover", function (d) {
         candidates.style("opacity",0.1);
         candidates.filter(function(path) {return path.name === d.name; }).style("opacity",1);
       })
       .on("mouseout", function (d) { candidates.style("opacity",1); })
-      .style("fill", "#ce3b69");
+      .style("fill", colorFilter);
 
 
   var ranking = candidates.append("text")
@@ -259,7 +284,6 @@ var round = candidates.append("circle")
       .style("font-weight", "bold")
       .text(function(d) { return d.values[0].rank; });
 
-
   var label = candidates.append("text")
       .attr("transform", function(d) { return "translate(" + (x(d.values[0].week) + 20) + "," + (y(d.values[0].rank) ) + ")"; })
       .attr("x", 8)
@@ -270,17 +294,30 @@ var round = candidates.append("circle")
       })
       .on("mouseout", function (d) { candidates.style("opacity",1); })
       .style("cursor","pointer")
-      .style("fill", "#ce3b69")
+      .style("fill", colorFilter)
       .style("font-weight", "bold")
       .text(function(d) { return d.name; });
 
-  
+  // FOR TIE BREAKERS @ THE START 
+  // update label.name to the name of the artists in a tie 
+  // make sure to uncomment below 
+/*
 
+      // overlap 1
+  label.filter(function(label){
+        return label.name === "Martin O'Malley";
+      }).transition().duration(10).attr("transform", function(d) { return "translate(" + (x(d.values[0].week) + 20) + "," + (y(d.values[0].rank) ) + ")"; })
+
+  label.filter(function(label){
+        return label.name === "Lincoln Chafee";
+      }).transition().duration(10).attr("transform", function(d) { return "translate(" + (x(d.values[0].week) + 20) + "," + (y(d.values[0].rank) + 12) + ")"; })
+*/
+  // end 
 
   var week = 1;
 
   var transition = d3.transition()
-    .delay(500)
+    .delay(800)
     .duration(speed)
     .each("start", function start() {         
 
@@ -316,31 +353,68 @@ var round = candidates.append("circle")
       timemark.transition()
          .duration(speed)
          .ease('linear')
-         .attr("transform",function(d) { return "translate(" + (x(d.values[week].week) ) + "," + (y(0)+18) + ") rotate(-30)"; })
-
-      // timemark.transition()
-      //   .duration(speed)
-      //   .ease('linear')
-      //   .attr("cx", function(d) { return x(d.values[week].week); })
-      //   .attr("cy", y(0) + 20);
-      
-
+         .attr("transform",function(d) { return "translate(" + (x(d.values[week].week) ) + "," + (y(1)-15) + ") rotate(-30)"; })
     
-      week+=1;
-
-      if (week !== data[0].length){
+    if (week !== xtickLabels.length - 1){
+       
+        week+=1;
 
         transition = transition.transition().each("start", start);} 
-     
-      
-    });
 
-<<<<<<< HEAD
-      
-=======
+     else if (week === xtickLabels.length - 1){
 
- 
->>>>>>> master
+      label.transition()
+        .duration(speed)
+        .ease('linear')
+        .attr("transform", function(d) {return "translate(" + (x(d.values[week].week) + 20) + "," + (y(d.values[week].rank)) + ")"; })
+
+    // FOR END TIE BREAKERS 
+    // Change the label.name as needed for both people in a tie 
+    // Make sure to uncomment below 
+/*
+    
+      label.filter(function(label){
+        return label.name === "Rick Santorum";
+      }).transition().duration(speed).ease('linear').attr("transform", function(d) {return "translate(" + (x(d.values[week].week) + 20) + "," + (y(d.values[week].rank)) + ")"; })
+
+      label.filter(function(label){
+        return label.name === "Marco Rubio";
+      }).transition().duration(speed).ease('linear').attr("transform", function(d) {return "translate(" + (x(d.values[week].week) + 20) + "," + (y(d.values[week].rank) + 12) + ")"; })
+
+*/
+        ranking.transition()
+        .duration(speed)
+        .ease('linear')
+        .attr("transform", function(d) { return "translate(" + (x(d.values[week].week) + 15) + "," + (y(d.values[week].rank) ) + ")"; })
+        .text(function(d,i) { return  d.values[week].rank; });
+
+      round.transition()
+        .duration(speed)
+        .ease('linear')
+        .attr("transform", function(d) { return "translate(" + (x(d.values[week].week) + 15) + "," + (y(d.values[week].rank)) + ")"; });
+    
+      circleEnd.transition()
+        .duration(speed)
+        .ease('linear')
+        .attr("cx", function(d) { return x(d.values[week].week); })
+        .attr("cy", function(d) { return y(d.values[week].rank); });
+
+      clip.transition()
+        .duration(speed)
+        .ease('linear')
+        .attr("width", x(week+1)+5)
+        .attr("height", height*1.2);
+
+      timemark.transition()
+         .duration(speed)
+         .ease('linear')
+         .attr("transform",function(d) { return "translate(" + (x(d.values[week].week) ) + "," + (y(1)-15) + ") rotate(-30)"; })
+
+     }
+
+      
+    })
+
 
 });
 
@@ -359,11 +433,20 @@ var round = candidates.append("circle")
 
         function resize() {
             var targetWidth = parseInt(container.style("width"));
-            svg.attr("width", targetWidth * 0.8);
-            svg.attr("height", Math.round(targetWidth /aspect * 0.8));
+            svg.attr("width", targetWidth);
+            svg.attr("height", Math.round(targetWidth /aspect));
         }  
     }
 
+}
+
+function getCol(matrix, col){
+  var column = [];
+  
+  for(var i=0; i<matrix.length; i++) {
+    column.push(matrix[i][col]);}
+  
+  return column;
 }
 
 </script>
