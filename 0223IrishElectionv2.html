@@ -308,7 +308,7 @@ var round = candidates.append("circle")
       }).transition().duration(10).attr("transform", function(d) { return "translate(" + (x(d.values[0].week) + 20) + "," + (y(d.values[0].rank) +24 ) + ")"; })
 
   label.filter(function(label){
-        return label.name === "Water Tariff";
+        return label.name === "Economy";
       }).transition().duration(10).attr("transform", function(d) { return "translate(" + (x(d.values[0].week) + 20) + "," + (y(d.values[0].rank) +12 ) + ")"; })
 
   label.filter(function(label){
@@ -377,11 +377,11 @@ var round = candidates.append("circle")
 
     
       label.filter(function(label){
-        return label.name === "ISIS";
+        return label.name === "Flood";
       }).transition().duration(speed).ease('linear').attr("transform", function(d) {return "translate(" + (x(d.values[week].week) + 20) + "," + (y(d.values[week].rank)) + ")"; })
 
       label.filter(function(label){
-        return label.name === "Flood";
+        return label.name === "Affordable Housing";
       }).transition().duration(speed).ease('linear').attr("transform", function(d) {return "translate(" + (x(d.values[week].week) + 20) + "," + (y(d.values[week].rank) + 12) + ")"; })
 
 
